@@ -29,12 +29,13 @@ const createPointTypesTemplate = (currentType) => {
         </div>`).join(''); 
 }
 
-const createPointOffersTemplate = ({currentOffers}) => {
-    const offerItems = currentOffers.map(offer => {
-        const isChecked = offer.included ? 'checked' : '';
+const createPointOffersTemplate = ({offersId, currentOffers}) => {
+    console.log(offersId)
+    const offerItems = currentOffers.map((offer) => {
+        const isChecked = offersId.includes(offer.id) ? 'checked' : '';
         return (
             `<div class="event__offer-selector">
-                <input class="event__offer-checkbox  visually-hidden" id="${offer.id}" type="checkbox" name="event-offer-luggage" ${isChecked ? 'checked' : ''}>
+                <input class="event__offer-checkbox  visually-hidden" id="${offer.id}" type="checkbox" name="event-offer-luggage" ${isChecked}>
                 <label class="event__offer-label" for="${offer.id}">
                     <span class="event__offer-title">${offer.title}</span>
                     &plus;&euro;&nbsp;
@@ -101,7 +102,7 @@ const createEditPointTemplate = ({state, pointDestination, pointOffers}) => {
                 <section class="event__details">
                     ${(currentOffers.length !== 0) ? `<section class="event__section  event__section--offers">
                         <h3 class="event__section-title  event__section-title--offers">Offers</h3>
-                        ${createPointOffersTemplate({currentOffers})}
+                        ${createPointOffersTemplate({offersId: point.offers, currentOffers})}
                     </section>` : ''}
                     ${(currentDestination) ? `<section class="event__section  event__section--destination">
                         <h3 class="event__section-title  event__section-title--destination">Destination</h3>
@@ -130,7 +131,7 @@ export default class EditPointView extends AbstractStatefulView {
         this.#pointOffers = pointOffers;
         this.#handleSubmitClick = onSubmitClick;
         this.#handleResetClick = onResetClick;
-
+        
         this._setState(EditPointView.parsePointToState({point}))
 
         this._restoreHandlers();
