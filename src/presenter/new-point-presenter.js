@@ -66,7 +66,6 @@ export default class NewPointPresenter {
                 isDeleting: false,
             });
         };
-        console.log(resetFormState)
     
         this.#pointNewComponent.shake(resetFormState);
     }
@@ -77,8 +76,6 @@ export default class NewPointPresenter {
             UpdateType.MINOR,
             point
         );
-
-        this.destroy({isCanceled: false});
     };
 
     #resetButtonClickHandler = () => {

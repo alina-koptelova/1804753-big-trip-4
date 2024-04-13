@@ -90,7 +90,6 @@ const createEditPointTemplate = ({state, pointDestination, pointOffers, pointTyp
 
     const currentDestination = pointDestination.find((destination) => destination.id === point.destination);
     const currentOffers = pointOffers.find((offer) => offer.type === type).offers;
-    console.log(typeof basePrice === 'number')
     
     return (
         `<li class="trip-events__item">
